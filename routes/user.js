@@ -117,5 +117,3 @@ router.get('/leaderboard', ensureLoggedIn, async (req, res, next) => {
 
 
 module.exports = router; //might need to add a bit more idk the format
-
-
