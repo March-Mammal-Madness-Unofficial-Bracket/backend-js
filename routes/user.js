@@ -94,15 +94,4 @@ router.get('/get_bracket', function(req, res, next) {
     });
 });
 
-router.get('/leaderboard', function(req, res, next) {
-  // This route retrieves the leaderboard data
-  db.all('SELECT username, bracket FROM brackets ORDER BY score DESC', function(err, rows) {
-    if (err) {
-      return next(err);
-    }
-
-    // TODO: Render leaderboard data, I wasn't sure how to do it so I just left this comment here
-  });
-});
-
 module.exports = router; //might need to add a bit more idk the format
