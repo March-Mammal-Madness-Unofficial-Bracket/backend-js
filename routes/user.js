@@ -61,4 +61,35 @@ router.post('/signin', async (req, res, next) => {
   });
 });
 
+router.post('/send_bracket', ensureLoggedIn, function(req, res, next) {
+  // This route creates a new bracket for the user
+  // The request body should contain a JSON object with the bracket data
+  var bracketData = req.body.bracket; // Assuming the bracket data is sent in the body as JSON
+  
+  db.run('INSERT INTO brackets (username, bracket) VALUES (?, ?)', [
+    req.user.username,
+    JSON.stringify(bracketData)
+  ], function(err) {
+        if (err) {
+            return next(err);
+        } else {
+            console.log('Bracket created for user:', req.user.username);
+        }
+    });
+});
+
+app.get('/get_bracket', function(req, res, next) {
+  res.render('bracket');
+
+  db.get(`SELECT * FROM brackets WHERE username=${req.user.username}`, [value], (err, row) => {
+    if (err) {
+        console.error(err.message);
+    } else if (row) {
+        console.log(row);
+    } else {
+        console.log('No row found with the specified condition.');
+    }
+  });
+});
+
 module.exports = router; //might need to add a bit more idk the format

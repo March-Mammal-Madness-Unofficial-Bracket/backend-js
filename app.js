@@ -50,20 +50,6 @@ app.use(function(req, res, next) {
 app.use('/', indexRouter);
 app.use('/', authRouter);
 
-app.get('/bracket', function(req, res, next) {
-  res.render('bracket');
-
-  db.get(`SELECT * FROM brackets WHERE username=${req.user.username}`, [value], (err, row) => {
-    if (err) {
-        console.error(err.message);
-    } else if (row) {
-        console.log(row);
-    } else {
-        console.log('No row found with the specified condition.');
-    }
-  });
-});
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
