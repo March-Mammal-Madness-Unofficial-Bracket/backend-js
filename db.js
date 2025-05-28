@@ -26,6 +26,7 @@ db.serialize(function() {
     id INTEGER PRIMARY KEY, \
     username TEXT UNIQUE, \
     bracket TEXT NOT NULL \
+    score INTEGER DEFAULT 0 \
   )")
   
   // create an initial user (username: alice, password: letmein)
