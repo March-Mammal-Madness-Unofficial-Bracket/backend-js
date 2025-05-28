@@ -94,4 +94,28 @@ router.get('/get_bracket', function(req, res, next) {
     });
 });
 
+
+router.get('/leaderboard', ensureLoggedIn, async (req, res, next) => {
+    try {
+        // fetches and process leaderboard data --
+        const allUserScores = await getAllUsersWithScores();//random function name for now
+
+        // Process and format for the required JSON structure
+        const leaderboardData = allUserScores.map(user => ({
+            name: user.name,
+            grade: user.grade,
+            score: user.score
+        }));
+
+        return res.json(leaderboardData);
+
+    } catch (err) {
+        console.error("Leaderboard Error:", err);
+        return next(err);
+    }
+});
+
+
 module.exports = router; //might need to add a bit more idk the format
+
+
