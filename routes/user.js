@@ -78,18 +78,20 @@ router.post('/send_bracket', ensureLoggedIn, function(req, res, next) {
     });
 });
 
-app.get('/get_bracket', function(req, res, next) {
-  res.render('bracket');
-
-  db.get(`SELECT * FROM brackets WHERE username=${req.user.username}`, [value], (err, row) => {
-    if (err) {
-        console.error(err.message);
-    } else if (row) {
-        console.log(row);
-    } else {
-        console.log('No row found with the specified condition.');
-    }
-  });
+router.get('/get_bracket', function(req, res, next) {
+    // This route retrieves the user's bracket
+    db.get('SELECT bracket FROM brackets WHERE username = ?', [req.user.username], function(err, row) {
+        if (err) {
+            return next(err);
+        }
+        if (row) {
+            // If a bracket exists for the user, send it back as JSON
+            res.json(JSON.parse(row.bracket));
+        } else {
+            // If no bracket exists, send an empty array or appropriate message
+            res.json([]);
+        }
+    });
 });
 
 module.exports = router; //might need to add a bit more idk the format
