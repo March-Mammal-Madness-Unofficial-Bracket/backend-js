@@ -53,9 +53,7 @@ app.use('/', authRouter);
 app.get('/bracket', function(req, res, next) {
   res.render('bracket');
 
-  console.log(req.user.username);
-
-  db.get('SELECT * FROM brackets WHERE username=', [value], (err, row) => {
+  db.get(`SELECT * FROM brackets WHERE username=${req.user.username}`, [value], (err, row) => {
     if (err) {
         console.error(err.message);
     } else if (row) {
