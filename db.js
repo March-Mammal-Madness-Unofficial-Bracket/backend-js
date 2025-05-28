@@ -21,6 +21,11 @@ db.serialize(function() {
     title TEXT NOT NULL, \
     completed INTEGER \
   )");
+
+  db.run("CREATE TABLE IF NOT EXISTS brackets ( \
+    id INTEGER PRIMARY KEY, \
+    username TEXT UNIQUE, \
+    bracket TEXT")
   
   // create an initial user (username: alice, password: letmein)
   var salt = crypto.randomBytes(16);
