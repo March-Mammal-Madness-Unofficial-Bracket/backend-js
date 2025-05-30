@@ -17,4 +17,16 @@ with each animal name, like ["bear","cat","donkey"] but longer
 
 */
 
+router.post('/new_bracket', ensureLoggedIn, function(req, res, next) {
+  var bracketData = req.body.bracket;
+  db.run('INSERT INTO brackets (username, bracket) VALUES (?, ?)', [
+    "Admin", // Hardcoded username for admin bracket creation,
+    JSON.stringify(bracketData)
+  ], function(err) {
+    if (err) {
+      return next(err);
+    }
+  });
+});
+
 module.exports = router;
