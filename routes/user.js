@@ -96,23 +96,13 @@ router.get('/get_bracket', function(req, res, next) {
 
 
 router.get('/leaderboard', ensureLoggedIn, async (req, res, next) => {
-    try {
-        // fetches and process leaderboard data --
-        const allUserScores = await getAllUsersWithScores();//random function name for now
+    db.all('SELECT username, score FROM brackets ORDER BY score DESC', [], (err, rows) => {
+        if (err) {
+            return next(err);
+        }
 
-        // Process and format for the required JSON structure
-        const leaderboardData = allUserScores.map(user => ({
-            name: user.name,
-            grade: user.grade,
-            score: user.score
-        }));
-
-        return res.json(leaderboardData);
-
-    } catch (err) {
-        console.error("Leaderboard Error:", err);
-        return next(err);
-    }
+        // TODO: Create a leaderboard layout and render retreived data with it
+    });
 });
 
 
