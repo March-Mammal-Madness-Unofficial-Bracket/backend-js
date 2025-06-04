@@ -58,7 +58,7 @@ router.post('/update-bracket', ensureLoggedIn, async (req, res, next) => {
   const officialBracket = req.body;
 
     //basic validation not sure if I need to add more
-    if (!officialBracket || typeof officialBracket != 'object' || !officialBracket.Champion || !officialBracket["Round 1"]) {
+    if (!officialBracket?.Champion || !officialBracket?.["Round 1"]) {
         return res.status(400).json({ message: 'Invalid bracket data provided. Ensure it matches the Bracket JSON format.' });
     }   //are other 400-numbers (e.g., 401, 402) better?
 
