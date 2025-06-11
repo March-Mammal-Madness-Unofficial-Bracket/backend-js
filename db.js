@@ -25,10 +25,10 @@ db.serialize(function() {
   db.run("CREATE TABLE IF NOT EXISTS brackets ( \
     id INTEGER PRIMARY KEY, \
     username TEXT UNIQUE, \
-    bracket TEXT NOT NULL \
+    bracket TEXT NOT NULL, \
     score INTEGER DEFAULT 0 \
   )")
-  
+    
   // create an initial user (username: alice, password: letmein)
   var salt = crypto.randomBytes(16);
   db.run('INSERT OR IGNORE INTO users (username, hashed_password, salt) VALUES (?, ?, ?)', [

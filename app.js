@@ -13,6 +13,7 @@ var SQLiteStore = require('connect-sqlite3')(session);
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
+var adminRouter = require('./routes/admin'); // for fixing error
 
 var app = express();
 
@@ -49,6 +50,7 @@ app.use(function(req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/', authRouter);
+app.use('/', adminRouter); //for fixing error
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
